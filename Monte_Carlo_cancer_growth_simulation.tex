@@ -1,0 +1,137 @@
+\documentclass[11pt,a4paper,twoside]{article}
+
+% ===============================
+% Packages
+% ===============================
+
+% Encoding and fonts
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Page layout
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+% Math
+\usepackage{amsmath,amssymb}
+
+% Figures
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Tables
+\usepackage{booktabs}
+
+% References
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+% Formatting
+\usepackage{parskip}   % no paragraph indentation
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{hyperref}
+
+% ===============================
+% Document
+% ===============================
+
+\begin{document}
+
+\title{Agent-Based Monte Carlo Simulation of Tumor Growth}
+\author{Your Name}
+\date{\today}
+
+\maketitle
+
+% ===============================
+\section{Introduction}
+% ===============================
+
+% Agent-based models in cancer
+% Why spatial effects matter
+% Why Monte Carlo methods are natural here
+
+Tumor growth emerges from the collective behavior of many interacting cells within a spatially structured microenvironment.
+Local effects such as cell--cell contact, spatial constraints, and limited nutrient availability play a central 
+role in shaping tumor morphology and growth dynamics. These features are difficult to capture using continuum models, 
+which motivates the use of agent-based modeling approaches.
+
+Agent-based models (ABMs) describe a system in terms of individual cells that follow simple,
+local rules depending on their state and immediate surroundings. In cancer growth modeling, 
+ABMs are particularly suitable for studying spatial heterogeneity and emergent behavior 
+resulting from microscopic interactions. A common formulation employs on-lattice models,
+where cells occupy sites on a regular grid and interact with neighboring cells.
+
+The stochastic nature of cellular processes such as division, death, and mutation is naturally
+incorporated using Monte Carlo methods, where events occur probabilistically at each time step.
+In this project, an on-lattice agent-based Monte Carlo model is implemented in the Julia
+programming language. The implementation deliberately relies on simple data structures using only 
+statics and randoms, without the use of specialized or high-level simulation packages. 
+
+The aim of this work is to qualitatively explore tumor growth under oxygen-limited conditions and to
+demonstrate how simple coding choices and local interaction rules can give rise to realistic growth behavior
+and spatial organization.
+
+
+
+% ===============================
+\section{Model and Methods}
+% ===============================
+
+The tumor is modeled using an on-lattice agent-based framework implemented in the Julia programming language.
+Cells occupy sites on a two-dimensional square lattice of size $N \times N$, in our model we set N=301. Each site can be empty,
+contain a normal cell, a cancer cell, or a dead cell. The system is initialized with a single normal cell 
+placed at the center of the lattice. Cell dynamics are updated using a Monte Carlo scheme: at each time step,
+all living cells are visited once in random order, and stochastic decisions for division or death are made
+based on local oxygen availability. A single mutation event is introduced by converting a normal cell at the tumor
+boundary into a cancer cell. the time of introducing the mutation is controled by in the model to test the different behavior
+of the cancer growth in different mutation time, where we have tested at time T\_MUT=120 and T\_mut = 60 in our simulation. 
+and different seeds were used to generate different realizations of the stochastic process.
+
+Division and death probabilities differ for normal and cancer cells with cancer having a higher
+probability for division and a lower probability for death. The division and death rates depend explicitly 
+on the oxygen concentration at the cell’s location.
+
+The oxygen field is prescribed as a static, radially symmetric profile that is lowest at the tumor core and increases toward the lattice boundary, 
+mimicking diffusion-limited nutrient supply. It is defined as
+\begin{equation}
+O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right),
+\end{equation}
+where $r$ is the distance from the lattice center, $O_{\min}$ is the minimum oxygen level at the core, and $L$ controls the characteristic length scale of oxygen recovery.
+Cell division is attempted first by placing a daughter cell in a neighboring empty site; if no empty site is available, division may still occur through a pushing mechanism, 
+where a chain of neighboring cells is displaced along a lattice direction until an empty site is reached. Cancer cells are assigned a higher probability to push than normal cells.
+Dead cells are removed stochastically with a fixed clearance probability, allowing space to be freed over time. 
+
+
+
+
+
+% ===============================
+\section{Results and Discussion}
+% ===============================
+
+\subsection{Tumor growth dynamics}
+% Cell counts vs time
+
+\subsection{Spatial structure}
+% Snapshots of lattice
+
+\subsection{Effect of oxygen limitation}
+
+
+% ===============================
+\section{Conclusion and Outlook}
+% ===============================
+
+% Summary
+% Limitations
+% Possible extensions
+
+% ===============================
+% \bibliographystyle{unsrt}
+% \bibliography{references}
+\printbibliography
+
+\end{document}

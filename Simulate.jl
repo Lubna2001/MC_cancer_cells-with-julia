@@ -7,7 +7,7 @@ include("MC_cancer_cell_model.jl")
 # 1. Simulation
 ############################################################
 
-T_MUT = 50   # optional mutation time
+T_MUT = 120   # optional mutation time
 
 function simulate(seed=1; snapshot_times=SNAPSHOTS)
     rng = MersenneTwister(seed)

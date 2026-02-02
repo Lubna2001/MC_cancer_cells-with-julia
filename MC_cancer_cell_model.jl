@@ -16,18 +16,28 @@ const NORMAL  = 1 # normal cell
 const DEAD    = 2 # dead cell
 const CANCER  = 3 # cancer cell
 
-N      = 101          # lattice size, you can adjust
+N      = 301          # lattice size, you can adjust
 TMAX   = 300          # time steps
 L_MAX  = 6            # max pushing distance
 SNAPSHOTS = [1, 50, 100, 200, 300]
 p_clear_dead = 0.02   # per step probability that a DEAD site becomes EMPTY
 
+const FOUNDER = 4   # cancer founder marker (for plotting only) to locate the muation site
+
+
 
 # Monte Carlo parameters (effective, qualitative)
 params = Dict(
     :normal => Dict(:div => 0.30, :death => 0.05),
-    :cancer => Dict(:div => 0.45, :death => 0.02)
+    :cancer => Dict(:div => 0.40, :death => 0.02)
 )
+
+# Pushing probabilities
+p_push = Dict(
+    NORMAL => 0.01,   # normal cells almost never push
+    CANCER => 0.25    # cancer can push sometimes
+)
+
 
 ############################################################
 # 2. Initialization
@@ -97,7 +107,12 @@ function try_division!(lat, x, y, rng)
         end
     end
 
-    # 2) Otherwise: push along a direction until an EMPTY is found
+    # 2) No empty neighbor: only push with probability p_push[cell]
+    if rand(rng) >= get(p_push, cell, 0.0)
+        return false
+    end
+
+    # 3) Pushing attempt: try directions until an EMPTY is found along the ray
     dirs = shuffle(rng, copy(NEIGH))
     for (dx,dy) in dirs
         x1, y1 = x + dx, y + dy
