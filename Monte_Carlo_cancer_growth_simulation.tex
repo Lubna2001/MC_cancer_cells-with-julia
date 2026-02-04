@@ -40,77 +40,128 @@
 \begin{document}
 
 \title{Agent-Based Monte Carlo Simulation of Tumor Growth}
-\author{Your Name}
+\author{Lubna Al-Rifaie, Sabina Saleem and Suraiya jakiya}
 \date{\today}
 
 \maketitle
 
 % ===============================
 \section{Introduction}
-% ===============================
 
-% Agent-based models in cancer
-% Why spatial effects matter
-% Why Monte Carlo methods are natural here
+In silico simulations are increasingly used to study tumor evolution, growth, and progression, as they allow one to explore complex biological 
+processes in a controlled and systematic way. Such approaches are particularly useful when spatial effects, local interactions, and stochasticity 
+play an important role, as is the case in solid tumor growth. In this project, tumor growth is modeled using an agent-based Monte Carlo approach. 
+Agent-based models (ABMs) describe a system in terms of individual cells that follow simple, local rules depending on their state and immediate
+surroundings. In cancer growth modeling, ABMs are well suited to capture spatial heterogeneity and emergent behavior arising from cell--cell
+interactions and environmental constraints. A common formulation employs on-lattice models, where cells occupy sites on a regular grid and interact 
+with neighboring cells.
 
-Tumor growth emerges from the collective behavior of many interacting cells within a spatially structured microenvironment.
-Local effects such as cell--cell contact, spatial constraints, and limited nutrient availability play a central 
-role in shaping tumor morphology and growth dynamics. These features are difficult to capture using continuum models, 
-which motivates the use of agent-based modeling approaches.
+The stochastic nature of cellular processes such as division, death, and mutation is naturally incorporated using Monte Carlo methods, 
+in which events occur probabilistically at each time step. The model is implemented in the Julia programming language and deliberately 
+relies on simple data structures and basic random number generation, without the use of specialized or high-level simulation packages. 
 
-Agent-based models (ABMs) describe a system in terms of individual cells that follow simple,
-local rules depending on their state and immediate surroundings. In cancer growth modeling, 
-ABMs are particularly suitable for studying spatial heterogeneity and emergent behavior 
-resulting from microscopic interactions. A common formulation employs on-lattice models,
-where cells occupy sites on a regular grid and interact with neighboring cells.
-
-The stochastic nature of cellular processes such as division, death, and mutation is naturally
-incorporated using Monte Carlo methods, where events occur probabilistically at each time step.
-In this project, an on-lattice agent-based Monte Carlo model is implemented in the Julia
-programming language. The implementation deliberately relies on simple data structures using only 
-statics and randoms, without the use of specialized or high-level simulation packages. 
-
-The aim of this work is to qualitatively explore tumor growth under oxygen-limited conditions and to
-demonstrate how simple coding choices and local interaction rules can give rise to realistic growth behavior
-and spatial organization.
+The aim of this work is to qualitatively study tumor growth under oxygen-limited conditions using a simple agent-based framework,
+rather than to provide quantitative predictions. The model is minimal, but can be extended to include additional
+factors such as nutrients or drug effects. The model assumptions and update rules are described in the following section.
 
 
 
-% ===============================
 \section{Model and Methods}
-% ===============================
 
-The tumor is modeled using an on-lattice agent-based framework implemented in the Julia programming language.
-Cells occupy sites on a two-dimensional square lattice of size $N \times N$, in our model we set N=301. Each site can be empty,
-contain a normal cell, a cancer cell, or a dead cell. The system is initialized with a single normal cell 
-placed at the center of the lattice. Cell dynamics are updated using a Monte Carlo scheme: at each time step,
-all living cells are visited once in random order, and stochastic decisions for division or death are made
-based on local oxygen availability. A single mutation event is introduced by converting a normal cell at the tumor
-boundary into a cancer cell. the time of introducing the mutation is controled by in the model to test the different behavior
-of the cancer growth in different mutation time, where we have tested at time T\_MUT=120 and T\_mut = 60 in our simulation. 
-and different seeds were used to generate different realizations of the stochastic process.
+The tumor is simulated on a two-dimensional square lattice of size $N \times N$, where in this work $N=301$. 
+Each lattice site can be empty or occupied by a normal cell, a cancer cell, or a dead cell. The system is 
+initialized with a single normal cell placed at the center of the lattice. Time evolution proceeds in discrete 
+steps using a Monte Carlo update scheme. At each time step, all living cells are visited once in random order,
+and stochastic decisions for division or death are made based on local oxygen availability.
 
-Division and death probabilities differ for normal and cancer cells with cancer having a higher
-probability for division and a lower probability for death. The division and death rates depend explicitly 
-on the oxygen concentration at the cell’s location.
+A mutation event is introduced by converting a normal cell that has at least one neighboring empty lattice site into a cancer cell.
 
-The oxygen field is prescribed as a static, radially symmetric profile that is lowest at the tumor core and increases toward the lattice boundary, 
-mimicking diffusion-limited nutrient supply. It is defined as
+The mutation time $T_{\text{mut}}$ is controlled to explore different growth scenarios, and simulations 
+were performed for $T_{\text{mut}} = 60$ and $T_{\text{mut}} = 120$. Different random seeds were used to
+generate independent realizations of the stochastic process.
+
+Division and death probabilities depend on both cell type and local oxygen concentration, with the effective 
+parameter values summarized in Table~\ref{table}. Cancer cells are assigned a higher division probability
+and a lower death probability compared to normal cells, reflecting their increased proliferative capacity and
+assumed tolerance to hypoxic conditions. In particular, reduced sensitivity of cancer cells to low oxygen
+levels is used as a simple way to model hypoxia resistance.
+
+The oxygen field is prescribed as a static, radially symmetric profile that is lowest at the tumor core and
+increases toward the lattice boundary, mimicking diffusion-limited nutrient supply. It is defined in \ref{oxygen}.
+
+
 \begin{equation}
 O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right),
+\label{oxygen}
 \end{equation}
-where $r$ is the distance from the lattice center, $O_{\min}$ is the minimum oxygen level at the core, and $L$ controls the characteristic length scale of oxygen recovery.
-Cell division is attempted first by placing a daughter cell in a neighboring empty site; if no empty site is available, division may still occur through a pushing mechanism, 
-where a chain of neighboring cells is displaced along a lattice direction until an empty site is reached. Cancer cells are assigned a higher probability to push than normal cells.
-Dead cells are removed stochastically with a fixed clearance probability, allowing space to be freed over time. 
 
+where $r$ is the distance from the lattice center, $O_{\min}$ denotes the minimum oxygen level, and $L$ controls
+the characteristic length scale of oxygen recovery.
 
+Cell division is attempted by placing a daughter cell in a neighboring empty site. If no empty site is available,
+division may still occur through a pushing mechanism, in which a chain of neighboring cells is displaced along 
+a lattice direction until an empty site is reached. Cancer cells are assigned a higher probability to push than
+normal cells. Dead cells are removed stochastically with a fixed clearance probability, allowing space to be freed over time.
 
+\begin{table}[H]
+\centering
+\caption{Effective probabilities used in the simulations.}
+\begin{tabular}{lcc}
+\toprule
+Parameter & Normal cells & Cancer cells \\
+\midrule
+Division probability $p_{\text{div}}$ & 0.30 & 0.40 \\
+Death probability $p_{\text{death}}$ & 0.05 & 0.02 \\
+\bottomrule
+\end{tabular}
+\label{table}
+\end{table}
+
+The probability for removing dead cells was fixed to $p_{\text{clear}} = 0.02$ for all simulations.
 
 
 % ===============================
 \section{Results and Discussion}
 % ===============================
+
+\subsection{Effect of stochastic mutation site}
+
+To investigate the influence of stochasticity on tumor evolution, simulations were performed with a fixed mutation time
+$T_{\text{mut}}=120$ while varying the random seed. Figure shows representative lattice snapshots
+for three different seeds at the mutation time (left column) and at a later time $t=200$ (right column). The mutation location
+is indicated by a yellow circle in all panels.
+
+Although the mutation time is fixed, the stochastic nature of the model leads to different mutation sites across runs.
+As a result, cancer cells emerge in regions with different local oxygen concentrations, which strongly influences subsequent growth. 
+For seed 1, the mutation occurs at an oxygen level of $O=0.671$, and the cancer population remains relatively limited by $t=200$. 
+In contrast, for seed 4 the mutation arises in a region with higher oxygen availability ($O=0.716$), leading to rapid proliferation 
+and a pronounced spatial expansion of cancer cells at later times.
+
+Interestingly, seed 6 exhibits a mutation at a lower oxygen level ($O=0.616$) compared to seed 1, yet shows a stronger cancer expansion
+by $t=200$. This indicates that tumor growth is not determined by oxygen availability alone. In this case, local spatial conditions,
+in particular the availability of neighboring empty sites due to the lattice structure and clearance dynamics, play an important role 
+in shaping the subsequent growth.. These results highlight the combined influence of stochastic mutation placement, oxygen heterogeneity,
+and spatial constraints on tumor growth within the model.
+
+
+in the second comparison, the mutation time was varied while keeping the random seed fixed to seed 6 and the time interval to check on the cancer again also fixed to 80
+time step. This allows us to explore how the timing of the mutation timing influences growth dynamics, The results are shown in Figure
+
+When the mutation occurs at $T_{\text{mut}}=90$, cancer cells emerge earlier in the simulation, allowing more time for proliferation and expansion. However,
+since the mutation arises at a lower oxygen level ($O=0.616$) compared to the later mutation time, growth is initially limited by hypoxia. By $t=170$, 
+the cancer population has expanded but remains relatively constrained. 
+
+
+
+\begin{figure}[http]
+    \centering
+    \includegraphics[width=0.85\textwidth]{seed1-12-200.png}
+    \caption{Seed 1 results: left panel shows the mutation point, right panel shows growth at time $t=200$. $O_{\text{mut}}$ is the oxygen concentration at the mutation point.}
+    \label{fig:seed1_tmut120_t200}
+\end{figure}
+
+The second comparison tested seed 6 with a fixed time interval and varied mutation time, to investigate how the mutation time influences the growth behavior of cancer cells.
+
 
 \subsection{Tumor growth dynamics}
 % Cell counts vs time
