@@ -88,7 +88,7 @@ snap_times = [t_mut, t_late]
 # Oxygen field is static, compute once
 oxy = init_oxygen(N)
 
-seeds = [1, 4, 6]
+seeds = [1,4,6]
 
 for s in seeds
     Nc, Nn, snaps, mut_pos = simulate(s; snapshot_times=snap_times)
@@ -96,7 +96,7 @@ for s in seeds
     mi, mj = mut_pos
     Omut = oxy[mi, mj]
 
-    outname = @sprintf("seed%d_tmut%d_t%d.pdf", s, t_mut, t_late)
+    outname = @sprintf("seed%d_tmut%d_t%d.svg", s, t_mut, t_late)
 
     plot_two_snapshots(
         snaps, t_mut, t_late;

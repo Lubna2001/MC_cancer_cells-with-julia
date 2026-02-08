@@ -6,7 +6,6 @@
 using Random
 using Statistics
 
-
 ############################################################
 # 1. Parameters
 ############################################################
@@ -17,13 +16,42 @@ const DEAD    = 2 # dead cell
 const CANCER  = 3 # cancer cell
 
 N      = 301          # lattice size, you can adjust
-TMAX   = 300          # time steps
+TMAX   = 300        # time steps
 L_MAX  = 6            # max pushing distance
 SNAPSHOTS = [1, 50, 100, 200, 300]
 p_clear_dead = 0.02   # per step probability that a DEAD site becomes EMPTY
 
-const FOUNDER = 4   # cancer founder marker (for plotting only) to locate the muation site
+# const FOUNDER = 4   # cancer founder marker (for plotting only) to locate the muation site
+# const ENABLE_PUSHING = false   # set to false for hypoxia-only tests
 
+
+###################################################################
+##################################################################
+# =========================================
+# Quick push test counters (temporary)
+# =========================================
+global D_total = 0 # total divisions (space + push)
+global D_space = 0 # divisions that succeeded by finding empty space
+global D_push  = 0 # divisions that succeeded by pushing
+global P_att   = 0 # total push attempts
+global P_succ  = 0 # successful pushes
+
+function reset_push_counters!()
+    global D_total = 0 
+    global D_space = 0 
+    global D_push  = 0 
+    global P_att   = 0 
+    global P_succ  = 0  
+    return nothing
+end
+
+function push_summary()
+    I_push = D_total == 0 ? 0.0 : D_push / D_total   # fraction of divisions that relied on pushing
+    E_push = P_att   == 0 ? 0.0 : P_succ / P_att  # pushing efficiency
+    return (; D_total, D_space, D_push, P_att, P_succ, I_push, E_push)
+end
+######################################################################
+#######################################################################
 
 
 # Monte Carlo parameters (effective, qualitative)
@@ -54,7 +82,7 @@ function init_oxygen(N; L=30.0)
     O = zeros(Float64, N, N)
     cx, cy = div(N, 2) + 1, div(N, 2) + 1
     # low in center, increases toward boundary
-    Omin = 0.35   # baseline oxygen everywhere (tune 0.2–0.5)
+    Omin = 0.35 # baseline oxygen everywhere (tune 0.2–0.5)
 
     for i in 1:N, j in 1:N
         r = sqrt((i-cx)^2 + (j-cy)^2)
@@ -93,6 +121,10 @@ const NEIGH = [(dx,dy) for dx in -1:1, dy in -1:1 if !(dx==0 && dy==0)]
     1 <= x <= size(lat,1) && 1 <= y <= size(lat,2)
 end
 
+# ----------------------------------------------------------
+# Instrumented overload (does NOT change the division logic)
+# It only records metrics for cancer cells.
+# ----------------------------------------------------------
 function try_division!(lat, x, y, rng)
     cell = lat[x,y]
     (cell == NORMAL || cell == CANCER) || return false
@@ -103,6 +135,13 @@ function try_division!(lat, x, y, rng)
         nx, ny = x + dx, y + dy
         if inbounds(lat, nx, ny) && lat[nx,ny] == EMPTY
             lat[nx,ny] = cell
+
+            # counter: space division
+            if cell == CANCER
+                global D_total += 1
+                global D_space += 1
+            end
+
             return true
         end
     end
@@ -110,6 +149,11 @@ function try_division!(lat, x, y, rng)
     # 2) No empty neighbor: only push with probability p_push[cell]
     if rand(rng) >= get(p_push, cell, 0.0)
         return false
+    end
+
+    # counter: push attempt
+    if cell == CANCER
+        global P_att += 1
     end
 
     # 3) Pushing attempt: try directions until an EMPTY is found along the ray
@@ -129,6 +173,14 @@ function try_division!(lat, x, y, rng)
                 end
                 # place daughter cell next to parent
                 lat[x1,y1] = cell
+
+                # counters: push success + push-dependent division
+                if cell == CANCER
+                    global P_succ += 1
+                    global D_total += 1
+                    global D_push  += 1
+                end
+
                 return true
             end
             push!(chain, (cx,cy))
@@ -139,7 +191,6 @@ function try_division!(lat, x, y, rng)
 
     return false
 end
-
 
 ############################################################
 # 5. One Monte Carlo step
@@ -171,7 +222,6 @@ function step!(lat, oxy, rng)
   clear_dead!(lat, rng)  # important: do it every step
 
 end
-
 
 
 ############################################################
@@ -206,4 +256,3 @@ function introduce_mutation!(lat, rng)
     lat[i,j] = CANCER
     return (true, i, j)
 end
-

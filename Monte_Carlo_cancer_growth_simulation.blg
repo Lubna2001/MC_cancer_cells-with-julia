@@ -1,9 +1,0 @@
-[0] Config.pm:328> INFO - This is Biber 2.21
-[1] Config.pm:331> INFO - Logfile is 'Monte_Carlo_cancer_growth_simulation.blg'
-[432] biber-MSWIN64:342> INFO - === 
-[587] Biber.pm:421> INFO - Reading 'Monte_Carlo_cancer_growth_simulation.bcf'
-[777] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
-[808] bbl.pm:676> INFO - Writing 'Monte_Carlo_cancer_growth_simulation.bbl' with encoding 'UTF-8'
-[809] bbl.pm:779> INFO - Output to Monte_Carlo_cancer_growth_simulation.bbl
-[809] Biber.pm:132> WARN - The file 'Monte_Carlo_cancer_growth_simulation.bcf' does not contain any citations!
-[810] Biber.pm:134> INFO - WARNINGS: 1

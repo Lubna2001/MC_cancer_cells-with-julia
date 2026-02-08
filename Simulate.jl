@@ -1,12 +1,15 @@
 using Random
 
 include("MC_cancer_cell_model.jl")
+include("push_metrics.jl")
+using .PushMetrics
+
 
 ############################################################
 # 1. Simulation
 ############################################################
 
-T_MUT = 90   # optional mutation time
+T_MUT = 120   # optional mutation time
 
 
 function simulate(seed=1; snapshot_times=SNAPSHOTS)
@@ -39,6 +42,7 @@ function simulate(seed=1; snapshot_times=SNAPSHOTS)
 
     return Nc_hist, Nn_hist, snaps, mut_pos
 end
+
 
 
 ############################################################

@@ -56,14 +56,10 @@ surroundings. In cancer growth modeling, ABMs are well suited to capture spatial
 interactions and environmental constraints. A common formulation employs on-lattice models, where cells occupy sites on a regular grid and interact 
 with neighboring cells.
 
-The stochastic nature of cellular processes such as division, death, and mutation is naturally incorporated using Monte Carlo methods, 
-in which events occur probabilistically at each time step. The model is implemented in the Julia programming language and deliberately 
-relies on simple data structures and basic random number generation, without the use of specialized or high-level simulation packages. 
-
-The aim of this work is to qualitatively study tumor growth under oxygen-limited conditions using a simple agent-based framework,
-rather than to provide quantitative predictions. The model is minimal, but can be extended to include additional
-factors such as nutrients or drug effects. The model assumptions and update rules are described in the following section.
-
+The aim of this work is to create a model that can be used to study the impact of stochasticity and spatial constraints on tumor growth taking into account
+the oxygen avalibility, probability of cellular division and death. The stochastic nature of cellular processes  is simulated 
+using MOnte Carlo methods implemented in Julia programming language, in which events such as division, death, and mutation-site occur probabilistically 
+at each time step. 
 
 
 \section{Model and Methods}
@@ -72,36 +68,18 @@ The tumor is simulated on a two-dimensional square lattice of size $N \times N$,
 Each lattice site can be empty or occupied by a normal cell, a cancer cell, or a dead cell. The system is 
 initialized with a single normal cell placed at the center of the lattice. Time evolution proceeds in discrete 
 steps using a Monte Carlo update scheme. At each time step, all living cells are visited once in random order,
-and stochastic decisions for division or death are made based on local oxygen availability.
+and stochastic decisions for division or death are made taking into account the local oxygen availability.
 
 A mutation event is introduced by converting a normal cell that has at least one neighboring empty lattice site into a cancer cell.
 
 The mutation time $T_{\text{mut}}$ is controlled to explore different growth scenarios, and simulations 
-were performed for $T_{\text{mut}} = 60$ and $T_{\text{mut}} = 120$. Different random seeds were used to
-generate independent realizations of the stochastic process.
+were performed using different random seeds to generate independent realizations of the stochastic process.
 
 Division and death probabilities depend on both cell type and local oxygen concentration, with the effective 
 parameter values summarized in Table~\ref{table}. Cancer cells are assigned a higher division probability
 and a lower death probability compared to normal cells, reflecting their increased proliferative capacity and
-assumed tolerance to hypoxic conditions. In particular, reduced sensitivity of cancer cells to low oxygen
-levels is used as a simple way to model hypoxia resistance.
+assumed tolerance to hypoxic conditions.
 
-The oxygen field is prescribed as a static, radially symmetric profile that is lowest at the tumor core and
-increases toward the lattice boundary, mimicking diffusion-limited nutrient supply. It is defined in \ref{oxygen}.
-
-
-\begin{equation}
-O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right),
-\label{oxygen}
-\end{equation}
-
-where $r$ is the distance from the lattice center, $O_{\min}$ denotes the minimum oxygen level, and $L$ controls
-the characteristic length scale of oxygen recovery.
-
-Cell division is attempted by placing a daughter cell in a neighboring empty site. If no empty site is available,
-division may still occur through a pushing mechanism, in which a chain of neighboring cells is displaced along 
-a lattice direction until an empty site is reached. Cancer cells are assigned a higher probability to push than
-normal cells. Dead cells are removed stochastically with a fixed clearance probability, allowing space to be freed over time.
 
 \begin{table}[H]
 \centering
@@ -117,64 +95,100 @@ Death probability $p_{\text{death}}$ & 0.05 & 0.02 \\
 \label{table}
 \end{table}
 
-The probability for removing dead cells was fixed to $p_{\text{clear}} = 0.02$ for all simulations.
+The oxygen field is prescribed as a static, radially symmetric profile that is lowest at the lattice core and
+increases toward the lattice boundary, mimicking diffusion-limited oxygen supply. It is defined in Equation~\eqref{oxygen}.
+
+\begin{equation}
+O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right),
+\label{oxygen}
+\end{equation}
+
+where $r$ is the distance from the lattice center, $O_{\min} = 0.35$ denotes the minimum oxygen level, and $L$ controls
+the characteristic length scale of oxygen recovery.
+
+Cell division is attempted by placing a daughter cell in a neighboring empty site. If no empty site is available,
+division may still occur through a pushing mechanism, in which a chain of neighboring cells is displaced along 
+a lattice direction until an empty site is reached. Cancer cells are assigned a higher probability to push neighboring
+cells compared to normal cells, reflecting their enhanced mechanical aggressiveness. For normal cells, the pushing
+probability is set to a very small value ($p_{\text{push}} = 0.05$) and is therefore negligible in practice. 
+Dead cells are removed stochastically with a fixed clearance probability $p_{\text{clear}} = 0.02$, allowing space to be freed over time.
+
 
 
 % ===============================
 \section{Results and Discussion}
 % ===============================
 
-\subsection{Effect of stochastic mutation site}
+\subsection{Effect of mutation timing on tumor growth}
 
-To investigate the influence of stochasticity on tumor evolution, simulations were performed with a fixed mutation time
-$T_{\text{mut}}=120$ while varying the random seed. Figure shows representative lattice snapshots
-for three different seeds at the mutation time (left column) and at a later time $t=200$ (right column). The mutation location
-is indicated by a yellow circle in all panels.
+In figure~\ref{fig:seed6}, the effect of mutation timing on tumor growth is illustrated for seed 6. 
+The left panel shows the lattice snapshot at the mutation time t = 50, 90, 150 and 200. 
+$O_{2\mathrm{MUT}}$ is the local oxygen concentration at the mutation site. The mutation site is marked by a yellow circle.
 
-Although the mutation time is fixed, the stochastic nature of the model leads to different mutation sites across runs.
-As a result, cancer cells emerge in regions with different local oxygen concentrations, which strongly influences subsequent growth. 
-For seed 1, the mutation occurs at an oxygen level of $O=0.671$, and the cancer population remains relatively limited by $t=200$. 
-In contrast, for seed 4 the mutation arises in a region with higher oxygen availability ($O=0.716$), leading to rapid proliferation 
-and a pronounced spatial expansion of cancer cells at later times.
+These snapshots illustrate how the timing of the mutation influences the spatial competition between cancer and normal cells.
+When the mutation occurs at an earlier time, the cancer population has more time to expand, resulting in stronger crowding 
+and a clear dominance over the surrounding normal cells. In contrast, for later mutation times, normal cells have already
+proliferated and occupied a larger fraction of the lattice before the mutation takes place, leading to a more abundance of normal cells. 
 
-Interestingly, seed 6 exhibits a mutation at a lower oxygen level ($O=0.616$) compared to seed 1, yet shows a stronger cancer expansion
-by $t=200$. This indicates that tumor growth is not determined by oxygen availability alone. In this case, local spatial conditions,
-in particular the availability of neighboring empty sites due to the lattice structure and clearance dynamics, play an important role 
-in shaping the subsequent growth.. These results highlight the combined influence of stochastic mutation placement, oxygen heterogeneity,
-and spatial constraints on tumor growth within the model.
+Interestingly, while earlier the mutation happened at the periphery, at $t = 200$, the mutation occurs at more centrally located site. This situation arises
+from the stochastic clearance of dead cells implemented in the model, which free up an empty site for cells to divide into. 
+Cancer growth in this case remains significantly reduced compared to earlier mutation times, highlighting the importance of early mutation events and spatial constraint
+ in driving tumor expansion.  
 
 
-in the second comparison, the mutation time was varied while keeping the random seed fixed to seed 6 and the time interval to check on the cancer again also fixed to 80
-time step. This allows us to explore how the timing of the mutation timing influences growth dynamics, The results are shown in Figure
-
-When the mutation occurs at $T_{\text{mut}}=90$, cancer cells emerge earlier in the simulation, allowing more time for proliferation and expansion. However,
-since the mutation arises at a lower oxygen level ($O=0.616$) compared to the later mutation time, growth is initially limited by hypoxia. By $t=170$, 
-the cancer population has expanded but remains relatively constrained. 
-
-
-
-\begin{figure}[http]
-    \centering
-    \includegraphics[width=0.85\textwidth]{seed1-12-200.png}
-    \caption{Seed 1 results: left panel shows the mutation point, right panel shows growth at time $t=200$. $O_{\text{mut}}$ is the oxygen concentration at the mutation point.}
-    \label{fig:seed1_tmut120_t200}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.725\textwidth]{Fig1_final.jpg}
+  \caption{Agent-based lattice snapshots illustrating the impact of the mutation event on tumor growth.
+Left panels show the lattice configuration at the time the mutation is introduced, 
+while right panels show the corresponding configurations after a fixed interval of 80 time steps following the mutation.
+$t$ denotes simulation time, the yellow circle marks the mutation site, and $O_{2}^{\mathrm{mut}}$ denotes the local oxygen concentration at that site. }
+  \label{fig:seed6}
 \end{figure}
 
-The second comparison tested seed 6 with a fixed time interval and varied mutation time, to investigate how the mutation time influences the growth behavior of cancer cells.
 
 
-\subsection{Tumor growth dynamics}
-% Cell counts vs time
 
-\subsection{Spatial structure}
-% Snapshots of lattice
+\subsection{Effect of crowding on cells growth}
+To investigate the role of stochasticity in tumor evolution, simulations were performed with a fixed mutation time for different seeds.
+Figure~\ref{fig:seed6_seed10} shows representative lattice snapshots for seeds 6 and 10 at the mutation time
+$t_{\mathrm{mut}} = 120$ (left column) and at a later time $t = 200$ (right column).
 
-\subsection{Effect of oxygen limitation}
+Even with the same mutation time, the outcomes differ strongly between seeds. In seed 10, the cancer population expands 
+rapidly and occupies most of the lattice by $t=200$, whereas in seed 6 the cancer growth remains limited. This difference originates
+from the stochastic placement of the mutation, which determines the local environment in which the first cancer cell appears. 
+
+Further analysis shows that oxygen availability at the mutation site is not the main factor behind this behavior.
+Instead, the key difference is the local density of normal cells at $t_{\mathrm{mut}}$. Quantifying this through
+the number of normal cells, we find $N_n(t_{\mathrm{mut}}=120,\mathrm{seed} 6)=1225$, compared to
+$N_n(t_{\mathrm{mut}}=120,\mathrm{seed} 10)=288$.
+The much lower crowding in seed 10 allows the cancer population to expand more easily, especially given its higher
+division and pushing probabilities and lower death probability compared to normal cells, as described earlier.
+
+
+  
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\textwidth]{seed6_seed10.jpg}
+  \caption{Lattice snapshots for seeds 6 and 10 at the mutation time \(t_{\mathrm{mut}} = 120\) (left) and at \(t = 200\) (right).
+The yellow circle marks the mutation site, and \(O_{2}MUT\) denotes the local oxygen concentration at that location.}
+  \label{fig:seed6_seed10}
+\end{figure}
 
 
 % ===============================
 \section{Conclusion and Outlook}
 % ===============================
+
+The model shows predictive results in figure1. while here we focus on stochacitcty this is a bascis model that can be further optimizwd 
+with introducing more factors such of nutrients avalibilbty, and other microenvironmental factors and type of mutations where the patheway
+effected by mutations. the oxygen could also be modified 
+
+
+
+In this model, the oxygen field is treated as a static, diffusion-based field. Oxygen consumption due to cellular respiration
+is therefore neglected for simplicity. In future work, the model could be extended to include oxygen uptake by cells, allowing 
+for a more realistic description of physiological conditions in which oxygen is dynamically consumed and therefore not purely statically diffused.
 
 % Summary
 % Limitations

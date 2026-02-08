@@ -33,3 +33,10 @@ plot_two_snapshots(snaps, 150, 200; outpath="snapshots_150_200_seed4.png")
 
 # and saving them with the name snapshots_150_200_seed4.png
 # you can change the name of the output file as you want
+
+
+
+# notes from latex 
+Removing oxygen eliminates spatial heterogeneity in division and death probabilities, making growth depend primarily on local
+space availability and stochastic effects. In the current parameter regime, oxygen acts as a weak modulator rather than
+a dominant constraint.

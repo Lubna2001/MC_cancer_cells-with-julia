@@ -1,11 +1,11 @@
 # Fdb version 4
-["biber Monte_Carlo_cancer_growth_simulation"] 1770237137.50513 "Monte_Carlo_cancer_growth_simulation.bcf" "Monte_Carlo_cancer_growth_simulation.bbl" "Monte_Carlo_cancer_growth_simulation" 1770237633.43063 0
-  "Monte_Carlo_cancer_growth_simulation.bcf" 1770237633 108551 70da8deeb7263703667d6229a7ffeac6 "pdflatex"
+["biber Monte_Carlo_cancer_growth_simulation"] 1770496882.56385 "Monte_Carlo_cancer_growth_simulation.bcf" "Monte_Carlo_cancer_growth_simulation.bbl" "Monte_Carlo_cancer_growth_simulation" 1770506388.6865 0
+  "Monte_Carlo_cancer_growth_simulation.bcf" 1770506388 108551 70da8deeb7263703667d6229a7ffeac6 "pdflatex"
   (generated)
   "Monte_Carlo_cancer_growth_simulation.bbl"
   "Monte_Carlo_cancer_growth_simulation.blg"
   (rewritten before read)
-["pdflatex"] 1770237630.11312 "c:/Users/user/project1/MC_Cancer_model/Monte_Carlo_cancer_growth_simulation.tex" "Monte_Carlo_cancer_growth_simulation.pdf" "Monte_Carlo_cancer_growth_simulation" 1770237633.43167 0
+["pdflatex"] 1770506385.62165 "c:/Users/user/project1/MC_Cancer_model/Monte_Carlo_cancer_growth_simulation.tex" "Monte_Carlo_cancer_growth_simulation.pdf" "Monte_Carlo_cancer_growth_simulation" 1770506388.68863 0
   "C:/Users/user/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1770024089 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/user/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1769254761 13333003 36c880c91a69b6da95da61abed7d4a7f ""
   "C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
@@ -124,13 +124,14 @@
   "C:/Users/user/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1751104012 9684 a33a14b82ce60d6e77cb9be689d79ee6 ""
   "C:/Users/user/AppData/Local/Programs/MiKTeX/tex/latex/setspace/setspace.sty" 1670403145 22490 8cac309b79a4c53a4ffce4b1b07aead0 ""
   "C:/Users/user/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "Monte_Carlo_cancer_growth_simulation.aux" 1770237633 2156 572671137e9053e8a14a82159322fa58 "pdflatex"
-  "Monte_Carlo_cancer_growth_simulation.bbl" 1770237149 486 76d65a242ec496c9b4361af646ff12cb "biber Monte_Carlo_cancer_growth_simulation"
-  "Monte_Carlo_cancer_growth_simulation.out" 1770237633 1308 bba9afb6b57fa9a90c4afdbf33bd8bf9 "pdflatex"
-  "Monte_Carlo_cancer_growth_simulation.run.xml" 1770237633 2529 5e7f760ff1a322b766046610d843acc4 "pdflatex"
-  "Monte_Carlo_cancer_growth_simulation.tex" 1770237629 8991 e5d54ab36ae95b9c453bf9f0f637ca49 ""
-  "c:/Users/user/project1/MC_Cancer_model/Monte_Carlo_cancer_growth_simulation.tex" 1770237629 8991 e5d54ab36ae95b9c453bf9f0f637ca49 ""
-  "seed1-12-200.png" 1770110367 15735 29a63886b69bc6ce08dc0646b432987e ""
+  "Fig1_final.jpg" 1770492602 1762121 d006786fccfd050740d9576112e3178d ""
+  "Monte_Carlo_cancer_growth_simulation.aux" 1770506388 3129 88b0209b3a59bdf627d6979a43a7734f "pdflatex"
+  "Monte_Carlo_cancer_growth_simulation.bbl" 1770496886 486 76d65a242ec496c9b4361af646ff12cb "biber Monte_Carlo_cancer_growth_simulation"
+  "Monte_Carlo_cancer_growth_simulation.out" 1770506388 1077 40595a176eb536fa01c0e35ccfd9d66b "pdflatex"
+  "Monte_Carlo_cancer_growth_simulation.run.xml" 1770506388 2529 5e7f760ff1a322b766046610d843acc4 "pdflatex"
+  "Monte_Carlo_cancer_growth_simulation.tex" 1770506385 10155 c5afc7dff1dd37e1c56a993ee287e1b9 ""
+  "c:/Users/user/project1/MC_Cancer_model/Monte_Carlo_cancer_growth_simulation.tex" 1770506385 10155 c5afc7dff1dd37e1c56a993ee287e1b9 ""
+  "seed6_seed10.jpg" 1770471520 1337351 45c6597ffbb952375476d5344863fc64 ""
   (generated)
   "Monte_Carlo_cancer_growth_simulation.aux"
   "Monte_Carlo_cancer_growth_simulation.bcf"
