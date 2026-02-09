@@ -16,5 +16,121 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{Chkhaidze2019}{article}{}{}
+      \name{author}{7}{}{%
+        {{hash=d040835747820ed7414a7a8dcf46ad82}{%
+           family={Chkhaidze},
+           familyi={C\bibinitperiod},
+           given={Ketevan},
+           giveni={K\bibinitperiod}}}%
+        {{hash=a800c7656e6f7afc2dbcf07490f1d47d}{%
+           family={Heide},
+           familyi={H\bibinitperiod},
+           given={Timon},
+           giveni={T\bibinitperiod}}}%
+        {{hash=88c3eeda7ffbd7d3b63a22e2527e8c0d}{%
+           family={Werner},
+           familyi={W\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=22c0d5abb05535eadebd4bd5feb079d1}{%
+           family={Williams},
+           familyi={W\bibinitperiod},
+           given={Marc\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=84bd81c9357a29fec9def0242b1b83b3}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Weini},
+           giveni={W\bibinitperiod}}}%
+        {{hash=e8951731cc483ef7b4a79f126c3446c5}{%
+           family={Caravagna},
+           familyi={C\bibinitperiod},
+           given={Giulio},
+           giveni={G\bibinitperiod}}}%
+        {{hash=3fa5e2139d514fd00093e7208a732565}{%
+           family={Graham},
+           familyi={G\bibinitperiod},
+           given={Trevor\bibnamedelima A.},
+           giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4751183db07349bcc4236ae25384b57f}
+      \strng{fullhash}{9e1a76e88b3b80be967886409ef8d0af}
+      \strng{fullhashraw}{9e1a76e88b3b80be967886409ef8d0af}
+      \strng{bibnamehash}{4751183db07349bcc4236ae25384b57f}
+      \strng{authorbibnamehash}{4751183db07349bcc4236ae25384b57f}
+      \strng{authornamehash}{4751183db07349bcc4236ae25384b57f}
+      \strng{authorfullhash}{9e1a76e88b3b80be967886409ef8d0af}
+      \strng{authorfullhashraw}{9e1a76e88b3b80be967886409ef8d0af}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{PLOS Computational Biology}
+      \field{number}{7}
+      \field{title}{Spatially constrained tumour growth affects the patterns of clonal selection and neutral drift in cancer genomic data}
+      \field{volume}{15}
+      \field{year}{2019}
+      \field{pages}{e1007243}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pcbi.1007243
+      \endverb
+    \endentry
+    \entry{RuizArrebola2020}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=12ddec2df52f25131d870a3280d67468}{%
+           family={Ruiz-Arrebola},
+           familyi={R\bibinithyphendelim A\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=58dc30fa41ab0eb7d5eaab38427295f1}{%
+           family={Tornero-López},
+           familyi={T\bibinithyphendelim L\bibinitperiod},
+           given={A.\bibnamedelimi M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=3ce4aa3dddfe4a220ec29bb975469ba1}{%
+           family={Guirado},
+           familyi={G\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ad157b507e74d0655c72b23756bcf1af}{%
+           family={Villalobos},
+           familyi={V\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=849ec713d4fcf5ba53d74e325123d0f3}{%
+           family={Lallena},
+           familyi={L\bibinitperiod},
+           given={A.\bibnamedelimi M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{f5d54ca6965e4ddf6dc1590d4b590beb}
+      \strng{fullhash}{8abdb657287af9dd333a65e21f221e4e}
+      \strng{fullhashraw}{8abdb657287af9dd333a65e21f221e4e}
+      \strng{bibnamehash}{f5d54ca6965e4ddf6dc1590d4b590beb}
+      \strng{authorbibnamehash}{f5d54ca6965e4ddf6dc1590d4b590beb}
+      \strng{authornamehash}{f5d54ca6965e4ddf6dc1590d4b590beb}
+      \strng{authorfullhash}{8abdb657287af9dd333a65e21f221e4e}
+      \strng{authorfullhashraw}{8abdb657287af9dd333a65e21f221e4e}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{European Journal of Medical Physics}
+      \field{title}{An on-lattice agent-based Monte Carlo model simulating the growth kinetics of multicellular tumor spheroids}
+      \field{volume}{77}
+      \field{year}{2020}
+      \field{pages}{1\bibrangedash 8}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1016/j.ejmp.2020.07.026
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

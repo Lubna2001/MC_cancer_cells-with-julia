@@ -1,37 +1,58 @@
 \documentclass[11pt,a4paper,twoside]{article}
 
 % ===============================
-% Packages
-% ===============================
-
 % Encoding and fonts
+% ===============================
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 
+% ===============================
 % Page layout
+% ===============================
 \usepackage[a4paper,margin=2.5cm]{geometry}
 
+% ===============================
 % Math
+% ===============================
 \usepackage{amsmath,amssymb}
 
+% ===============================
 % Figures
+% ===============================
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
 
+% ===============================
 % Tables
+% ===============================
 \usepackage{booktabs}
 
-% References
-\usepackage{biblatex}
-\addbibresource{references.bib}
-
+% ===============================
 % Formatting
+% ===============================
 \usepackage{parskip}   % no paragraph indentation
 \usepackage{setspace}
 \onehalfspacing
-\usepackage{hyperref}
+
+% ===============================
+% Utilities
+% ===============================
+\usepackage{placeins}  % for \FloatBarrier
+
+% ===============================
+% Hyperlinks (must be late)
+% ===============================
+\usepackage[hidelinks]{hyperref}
+
+% ===============================
+% References
+% ===============================
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+
 
 % ===============================
 % Document
@@ -48,18 +69,21 @@
 % ===============================
 \section{Introduction}
 
-In silico simulations are increasingly used to study tumor evolution, growth, and progression, as they allow one to explore complex biological 
-processes in a controlled and systematic way. Such approaches are particularly useful when spatial effects, local interactions, and stochasticity 
-play an important role, as is the case in solid tumor growth. In this project, tumor growth is modeled using an agent-based Monte Carlo approach. 
-Agent-based models (ABMs) describe a system in terms of individual cells that follow simple, local rules depending on their state and immediate
-surroundings. In cancer growth modeling, ABMs are well suited to capture spatial heterogeneity and emergent behavior arising from cell--cell
-interactions and environmental constraints. A common formulation employs on-lattice models, where cells occupy sites on a regular grid and interact 
-with neighboring cells.
+In-silico simulations are increasingly used to study tumor evolution, growth, and progression, as they allow complex biological processes to be explored 
+in a controlled and systematic way. Such approaches are particularly useful when spatial effects, local interactions, and stochasticity play an important 
+role, as is the case in solid tumor growth. In recent studies, spatial constraints have been shown to strongly influence tumor expansion and clonal dynamics,
+and can substantially affect the role of selection in tumor evolution \cite{Chkhaidze2019}.
 
-The aim of this work is to create a model that can be used to study the impact of stochasticity and spatial constraints on tumor growth taking into account
-the oxygen avalibility, probability of cellular division and death. The stochastic nature of cellular processes  is simulated 
-using MOnte Carlo methods implemented in Julia programming language, in which events such as division, death, and mutation-site occur probabilistically 
-at each time step. 
+In this project, tumor growth is modeled using an agent-based Monte Carlo approach. Agent-based models (ABMs) describe a system in terms of individual cells
+that follow simple, local rules depending on their state and immediate surroundings. In cancer growth modeling, ABMs are well suited to capture spatial heterogeneity
+and emergent behavior arising from cell–cell interactions and environmental constraints. A common formulation employs on-lattice models, where cells occupy sites 
+on a regular grid and interact with neighboring cells, an approach that has been widely used to simulate multicellular tumor growth \cite{RuizArrebola2020}.
+
+The aim of this work is to develop a model that can be used to study the impact of stochasticity and spatial constraints on tumor growth while taking into account 
+oxygen availability and probabilistic rules for cellular division and death. The stochastic nature of cellular processes is simulated using Monte Carlo methods
+
+implemented in the Julia programming language, in which events such as division, death, clearance of dead cells, and mutation onset occur probabilistically at each 
+time step
 
 
 \section{Model and Methods}
@@ -67,40 +91,16 @@ at each time step.
 The tumor is simulated on a two-dimensional square lattice of size $N \times N$, where in this work $N=301$. 
 Each lattice site can be empty or occupied by a normal cell, a cancer cell, or a dead cell. The system is 
 initialized with a single normal cell placed at the center of the lattice. Time evolution proceeds in discrete 
-steps using a Monte Carlo update scheme. At each time step, all living cells are visited once in random order,
-and stochastic decisions for division or death are made taking into account the local oxygen availability.
+steps using a Monte Carlo update scheme. At each time step, all living cells are visited once,
+and probablistic decisions for division or death are made taking into account the local oxygen availability.
 
-A mutation event is introduced by converting a normal cell that has at least one neighboring empty lattice site into a cancer cell.
-
-The mutation time $T_{\text{mut}}$ is controlled to explore different growth scenarios, and simulations 
-were performed using different random seeds to generate independent realizations of the stochastic process.
-
-Division and death probabilities depend on both cell type and local oxygen concentration, with the effective 
-parameter values summarized in Table~\ref{table}. Cancer cells are assigned a higher division probability
-and a lower death probability compared to normal cells, reflecting their increased proliferative capacity and
-assumed tolerance to hypoxic conditions.
-
-
-\begin{table}[H]
-\centering
-\caption{Effective probabilities used in the simulations.}
-\begin{tabular}{lcc}
-\toprule
-Parameter & Normal cells & Cancer cells \\
-\midrule
-Division probability $p_{\text{div}}$ & 0.30 & 0.40 \\
-Death probability $p_{\text{death}}$ & 0.05 & 0.02 \\
-\bottomrule
-\end{tabular}
-\label{table}
-\end{table}
 
 The oxygen field is prescribed as a static, radially symmetric profile that is lowest at the lattice core and
-increases toward the lattice boundary, mimicking diffusion-limited oxygen supply. It is defined in Equation~\eqref{oxygen}.
+increases toward the lattice boundary, mimicking diffusion-limited oxygen supply. It is defined in Equation~\eqref{eq:oxygen}.
 
 \begin{equation}
-O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right),
-\label{oxygen}
+O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right)
+\label{eq:oxygen}
 \end{equation}
 
 where $r$ is the distance from the lattice center, $O_{\min} = 0.35$ denotes the minimum oxygen level, and $L$ controls
@@ -110,8 +110,60 @@ Cell division is attempted by placing a daughter cell in a neighboring empty sit
 division may still occur through a pushing mechanism, in which a chain of neighboring cells is displaced along 
 a lattice direction until an empty site is reached. Cancer cells are assigned a higher probability to push neighboring
 cells compared to normal cells, reflecting their enhanced mechanical aggressiveness. For normal cells, the pushing
-probability is set to a very small value ($p_{\text{push}} = 0.05$) and is therefore negligible in practice. 
-Dead cells are removed stochastically with a fixed clearance probability $p_{\text{clear}} = 0.02$, allowing space to be freed over time.
+probability is set to a very small value as shown in Table~\ref{table:parameters} and is therefore negligible in practice. 
+Dead cells are removed stochastically with a fixed clearance probability $p_{\text{clear}} = 0.02$, allowing space to be freed up over time.
+
+A former cancer cell occurs by introducing a mutation event in a normal cell that has at least one neighboring empty lattice site. 
+The mutation time $t_{\text{mut}}$ can be controlled to explore different growth scenarios, and simulations 
+using different random seeds can be used to generate independent realizations of the stochastic process.
+
+Division and death probabilities depend on both the cell type and the local oxygen concentration, with baseline
+parameter values summarized in Table~\ref{table:parameters}. Oxygen enters the model as a phenomenological factor 
+that biases cell fate toward division in well-oxygenated regions and toward death under hypoxic conditions, as defined in Eq.~\eqref{eq:oxygen_fate}.
+Normal cell division is assumed to scale strongly with oxygen availability, whereas cancer cells are allowed
+to maintain a finite probability of division even in hypoxic environments. For the results shown here, a minimum oxygen level 
+$O_{\min} = 0.35 $ is imposed, which limits the degree of hypoxia experienced by cells. 
+This parameter can be varied in future simulations to explore more severe hypoxic conditions.
+If neither division nor death occurs during a given time step, the cell remains unchanged.
+
+\begin{table}[H]
+\centering
+\caption{Effective probabilities used in the simulations.}
+\begin{tabular}{lcc}
+\toprule
+Parameter & Normal cells & Cancer cells \\
+\midrule
+Push probability $p_{\text{push}}$ & 0.01 & 0.25 \\
+Division probability $p_{\text{div}}$ & 0.30 & 0.40 \\
+Death probability $p_{\text{death}}$ & 0.05 & 0.02 \\
+\bottomrule
+\end{tabular}
+\label{table:parameters}
+\end{table}
+
+
+
+\begin{equation}
+\begin{aligned}
+p_{\mathrm{div}}(O) &=
+\begin{cases}
+p_{\mathrm{div}}^{N}\, O, \\
+p_{\mathrm{div}}^{C}\,(0.5 + 0.5\,O),
+\end{cases} \\[6pt]
+p_{\mathrm{death}}(O) &=
+\begin{cases}
+p_{\mathrm{death}}^{N}\,(1 - O), \\
+p_{\mathrm{death}}^{C}\,(1 - O),
+\end{cases} \\[6pt]
+p_{\mathrm{quies}}(O) &= 1 - p_{\mathrm{div}}(O) - p_{\mathrm{death}}(O).
+\end{aligned}
+\label{eq:oxygen_fate}
+\end{equation}
+
+\noindent\textbf{Oxygen-dependent cell fate probabilities.}
+Here, $O \in [O_{\min},1]$ denotes the local oxygen concentration, with $O_{\min}=0.35$.
+Superscripts $N$ and $C$ refer to normal and cancer cells, respectively.
+
 
 
 
@@ -122,24 +174,24 @@ Dead cells are removed stochastically with a fixed clearance probability $p_{\te
 \subsection{Effect of mutation timing on tumor growth}
 
 In figure~\ref{fig:seed6}, the effect of mutation timing on tumor growth is illustrated for seed 6. 
-The left panel shows the lattice snapshot at the mutation time t = 50, 90, 150 and 200. 
-$O_{2\mathrm{MUT}}$ is the local oxygen concentration at the mutation site. The mutation site is marked by a yellow circle.
+The left panel shows the lattice snapshot at the mutation time $t = 50,\; 90,\; 150,\; \text{and}\; 200$. 
+$O_{2}^{\mathrm{mut}}$is the local oxygen concentration at the mutation site. The former cancer cell is marked by a yellow circle.
 
 These snapshots illustrate how the timing of the mutation influences the spatial competition between cancer and normal cells.
 When the mutation occurs at an earlier time, the cancer population has more time to expand, resulting in stronger crowding 
 and a clear dominance over the surrounding normal cells. In contrast, for later mutation times, normal cells have already
 proliferated and occupied a larger fraction of the lattice before the mutation takes place, leading to a more abundance of normal cells. 
 
-Interestingly, while earlier the mutation happened at the periphery, at $t = 200$, the mutation occurs at more centrally located site. This situation arises
-from the stochastic clearance of dead cells implemented in the model, which free up an empty site for cells to divide into. 
-Cancer growth in this case remains significantly reduced compared to earlier mutation times, highlighting the importance of early mutation events and spatial constraint
- in driving tumor expansion.  
+Mutations introduced at early time points ($t= 50, 90, 150$) occure at the periphery, while when it was introduced at ($t = 200$), it occurs at more centrally located 
+site. This situation might arise from the stochastic clearance of dead cells implemented in the model, which free up an empty site for cells to divide into, and later
+on growth happens through the pushing mechanisim. Cancer growth in this case remains significantly reduced compared to earlier mutation times, highlighting 
+the importance of early mutation events and spatial constraint in driving tumor expansion.  
 
-
-\begin{figure}[htbp]
+\newpage
+\begin{figure}[H]
   \centering
-  \includegraphics[width=0.725\textwidth]{Fig1_final.jpg}
-  \caption{Agent-based lattice snapshots illustrating the impact of the mutation event on tumor growth.
+  \includegraphics[width=0.9\textwidth]{Seed6_diff_t_mut.jpg}
+  \caption{Agent-based lattice snapshots for $ seed = 6 $illustrating the impact of the mutation event on tumor growth.
 Left panels show the lattice configuration at the time the mutation is introduced, 
 while right panels show the corresponding configurations after a fixed interval of 80 time steps following the mutation.
 $t$ denotes simulation time, the yellow circle marks the mutation site, and $O_{2}^{\mathrm{mut}}$ denotes the local oxygen concentration at that site. }
@@ -148,7 +200,7 @@ $t$ denotes simulation time, the yellow circle marks the mutation site, and $O_{
 
 
 
-
+\newpage
 \subsection{Effect of crowding on cells growth}
 To investigate the role of stochasticity in tumor evolution, simulations were performed with a fixed mutation time for different seeds.
 Figure~\ref{fig:seed6_seed10} shows representative lattice snapshots for seeds 6 and 10 at the mutation time
@@ -160,18 +212,18 @@ from the stochastic placement of the mutation, which determines the local enviro
 
 Further analysis shows that oxygen availability at the mutation site is not the main factor behind this behavior.
 Instead, the key difference is the local density of normal cells at $t_{\mathrm{mut}}$. Quantifying this through
-the number of normal cells, we find $N_n(t_{\mathrm{mut}}=120,\mathrm{seed} 6)=1225$, compared to
-$N_n(t_{\mathrm{mut}}=120,\mathrm{seed} 10)=288$.
+the number of normal cells $N_n(t,\mathrm{\text{seed number}})$, we find $N_n(t_{\mathrm{mut}}=120, 6)=1225$, compared to
+$N_n(t_{\mathrm{mut}}=120, 10)=288$.
 The much lower crowding in seed 10 allows the cancer population to expand more easily, especially given its higher
 division and pushing probabilities and lower death probability compared to normal cells, as described earlier.
 
 
   
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\textwidth]{seed6_seed10.jpg}
-  \caption{Lattice snapshots for seeds 6 and 10 at the mutation time \(t_{\mathrm{mut}} = 120\) (left) and at \(t = 200\) (right).
-The yellow circle marks the mutation site, and \(O_{2}MUT\) denotes the local oxygen concentration at that location.}
+  \includegraphics[width=0.6\textwidth]{seed6_seed10.jpg}
+  \caption{Lattice snapshots for seeds 6 and 10 at the mutation time \(t_{\mathrm{mut}} = 120\) and at \(t = 200\).
+The yellow circle marks the mutation site, and  $O_{2}^{\mathrm{mut}}$ denotes the local oxygen concentration at that location.}
   \label{fig:seed6_seed10}
 \end{figure}
 
@@ -179,24 +231,23 @@ The yellow circle marks the mutation site, and \(O_{2}MUT\) denotes the local ox
 % ===============================
 \section{Conclusion and Outlook}
 % ===============================
+In this work, we developed an agent based lattice model to study how tumor growth depends on mutation timing and stochastic effects.
+As a proof of principle, the model was evaluated by varying the time at which a cancerous mutation is introduced. As expected, early
+mutations occur when fewer healthy cells are present, allowing the higher division rate of cancer cells to drive a rapid and dominant
+tumor expansion. In contrast, mutations introduced at later times arise in a more crowded environment, where the larger number of
+surrounding normal cells limits subsequent cancer growth.
 
-The model shows predictive results in figure1. while here we focus on stochacitcty this is a bascis model that can be further optimizwd 
-with introducing more factors such of nutrients avalibilbty, and other microenvironmental factors and type of mutations where the patheway
-effected by mutations. the oxygen could also be modified 
+To further assess the role of stochasticity, simulations were performed using different random seeds while keeping the mutation timing fixed.
+Despite identical model parameters, the local conditions at the mutation site differed between seeds, leading to variations in the number of
+normal cells present at the time of mutation. These differences directly influenced cancer expansion, highlighting the importance of local 
+spatial crowding in determining tumor growth.
+
+In the current implementation, the oxygen field is treated as a static, diffusion based background, and oxygen consumption by cells is neglected 
+for simplicity. As such, the model provides a minimal framework that can be extended in future work by incorporating dynamic oxygen uptake,
+nutrient availability, and additional microenvironmental factors. With further development and parameter tuning using experimental data, 
+the model could be used to make more quantitative and predictive statements about tumor growth under different conditions.
 
 
-
-In this model, the oxygen field is treated as a static, diffusion-based field. Oxygen consumption due to cellular respiration
-is therefore neglected for simplicity. In future work, the model could be extended to include oxygen uptake by cells, allowing 
-for a more realistic description of physiological conditions in which oxygen is dynamically consumed and therefore not purely statically diffused.
-
-% Summary
-% Limitations
-% Possible extensions
-
-% ===============================
-% \bibliographystyle{unsrt}
-% \bibliography{references}
 \printbibliography
 
 \end{document}
