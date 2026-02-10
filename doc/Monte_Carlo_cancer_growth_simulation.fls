@@ -1,6 +1,6 @@
-PWD c:\Users\user\project1\MC_Cancer_model
+PWD c:\Users\user\project1\MC_Cancer_model\doc
 INPUT C:\Users\user\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\user\project1\MC_Cancer_model\Monte_Carlo_cancer_growth_simulation.tex
+INPUT c:\Users\user\project1\MC_Cancer_model\doc\Monte_Carlo_cancer_growth_simulation.tex
 OUTPUT Monte_Carlo_cancer_growth_simulation.log
 INPUT C:\Users\user\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\user\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls

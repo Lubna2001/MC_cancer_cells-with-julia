@@ -1,8 +1,6 @@
 using Random
 
 include("MC_cancer_cell_model.jl")
-include("push_metrics.jl")
-using .PushMetrics
 
 
 ############################################################

@@ -19,6 +19,89 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
+    \entry{Wang2014}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=3775df02663a5557962d1c5e17cf4de8}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Zhihui},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=ddac0b2da1bce52073340a79ae18e8b7}{%
+           family={Butner},
+           familyi={B\bibinitperiod},
+           given={Joseph\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=1c8f40f5ef798fcd957a81ce6cd92857}{%
+           family={Kerketta},
+           familyi={K\bibinitperiod},
+           given={Romica},
+           giveni={R\bibinitperiod}}}%
+        {{hash=1929f97ccc1aaca2836132eac363386e}{%
+           family={Cristini},
+           familyi={C\bibinitperiod},
+           given={Vittorio},
+           giveni={V\bibinitperiod}}}%
+        {{hash=6328037b0567786269bad381bdea38cd}{%
+           family={Deisboeck},
+           familyi={D\bibinitperiod},
+           given={Thomas\bibnamedelima S.},
+           giveni={T\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{42dbef4c517218cf648dded313d05e3e}
+      \strng{fullhash}{9edc5eff4d04baeb5386e9a7a5cb2dca}
+      \strng{fullhashraw}{9edc5eff4d04baeb5386e9a7a5cb2dca}
+      \strng{bibnamehash}{42dbef4c517218cf648dded313d05e3e}
+      \strng{authorbibnamehash}{42dbef4c517218cf648dded313d05e3e}
+      \strng{authornamehash}{42dbef4c517218cf648dded313d05e3e}
+      \strng{authorfullhash}{9edc5eff4d04baeb5386e9a7a5cb2dca}
+      \strng{authorfullhashraw}{9edc5eff4d04baeb5386e9a7a5cb2dca}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Seminars in Cancer Biology}
+      \field{title}{Simulating cancer growth with multiscale agent-based modeling}
+      \field{year}{2014}
+      \verb{doi}
+      \verb 10.1016/j.semcancer.2014.04.001
+      \endverb
+    \endentry
+    \entry{Drasdo2005}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=071b80cd97292c285d9f949330f0ac39}{%
+           family={Drasdo},
+           familyi={D\bibinitperiod},
+           given={Dirk},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5058f2f651678bb44549735d5886e473}{%
+           family={Höhme},
+           familyi={H\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{fullhash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{fullhashraw}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{bibnamehash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{authorbibnamehash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{authornamehash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{authorfullhash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{authorfullhashraw}{7a2ad5f68908050db15cf2718b65a64b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Biology}
+      \field{number}{3}
+      \field{title}{A single-cell-based model of tumor growth in vitro: monolayers and spheroids}
+      \field{volume}{2}
+      \field{year}{2005}
+      \field{pages}{133\bibrangedash 147}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1088/1478-3975/2/3/001
+      \endverb
+    \endentry
     \entry{Chkhaidze2019}{article}{}{}
       \name{author}{7}{}{%
         {{hash=d040835747820ed7414a7a8dcf46ad82}{%
@@ -65,8 +148,8 @@
       \strng{authornamehash}{4751183db07349bcc4236ae25384b57f}
       \strng{authorfullhash}{9e1a76e88b3b80be967886409ef8d0af}
       \strng{authorfullhashraw}{9e1a76e88b3b80be967886409ef8d0af}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{PLOS Computational Biology}
@@ -116,8 +199,8 @@
       \strng{authornamehash}{f5d54ca6965e4ddf6dc1590d4b590beb}
       \strng{authorfullhash}{8abdb657287af9dd333a65e21f221e4e}
       \strng{authorfullhashraw}{8abdb657287af9dd333a65e21f221e4e}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{European Journal of Medical Physics}

@@ -61,7 +61,7 @@
 \begin{document}
 
 \title{Agent-Based Monte Carlo Simulation of Tumor Growth}
-\author{Lubna Al-Rifaie, Sabina Saleem and Suraiya jakiya}
+\author{Lubna Al-Rifaie, Sabina Saleem and Suraiya Yesmin jakiya}
 \date{\today}
 
 \maketitle
@@ -69,21 +69,20 @@
 % ===============================
 \section{Introduction}
 
-In-silico simulations are increasingly used to study tumor evolution, growth, and progression, as they allow complex biological processes to be explored 
-in a controlled and systematic way. Such approaches are particularly useful when spatial effects, local interactions, and stochasticity play an important 
-role, as is the case in solid tumor growth. In recent studies, spatial constraints have been shown to strongly influence tumor expansion and clonal dynamics,
-and can substantially affect the role of selection in tumor evolution \cite{Chkhaidze2019}.
+In-silico simulations are becoming increasingly used to study cancer biology, as they enable the combined effects of multiple biological
+and physical factors to be investigated within a controlled framework, thereby improving our ability to understand and predict tumor behavior\cite{Wang2014}.
+This is particularly relevant for solid tumors, where spatial constraints, local cell–cell interactions, and stochastic effects play an 
+important role in shaping growth dynamics.
 
-In this project, tumor growth is modeled using an agent-based Monte Carlo approach. Agent-based models (ABMs) describe a system in terms of individual cells
-that follow simple, local rules depending on their state and immediate surroundings. In cancer growth modeling, ABMs are well suited to capture spatial heterogeneity
-and emergent behavior arising from cell–cell interactions and environmental constraints. A common formulation employs on-lattice models, where cells occupy sites 
-on a regular grid and interact with neighboring cells, an approach that has been widely used to simulate multicellular tumor growth \cite{RuizArrebola2020}.
+In this context, agent-based models (ABMs) have been widely applied to simulate and study tumor growth. A common formulation employs 
+on-lattice models, where cells occupy sites on a regular grid and interact with neighboring cells. In cancer growth modeling, ABMs 
+are well suited to capture spatial heterogeneity and emergent behavior arising from cell–cell interactions and environmental constraints\cite{Drasdo2005} \cite{Chkhaidze2019}.
 
-The aim of this work is to develop a model that can be used to study the impact of stochasticity and spatial constraints on tumor growth while taking into account 
-oxygen availability and probabilistic rules for cellular division and death. The stochastic nature of cellular processes is simulated using Monte Carlo methods
-
-implemented in the Julia programming language, in which events such as division, death, clearance of dead cells, and mutation onset occur probabilistically at each 
-time step
+In thisproject, tumor growth is modeled using an agent-based Monte Carlo approach, an approach that has been used in previous studies
+to simulate multicellular tumor growth \cite{RuizArrebola2020}. The aim of this work is to develop a model that can be used to study the impact of
+stochasticity, spatial constraints and oxygen availability on tumor growth within growing healthy cell population. The stochastic
+nature of cellular processes is simulated using Monte Carlo methods implemented in the Julia programming language, in which events 
+such as division, death, clearance of dead cells, and mutation-site occur probabilistically at each time step.
 
 
 \section{Model and Methods}
@@ -103,8 +102,8 @@ O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right)
 \label{eq:oxygen}
 \end{equation}
 
-where $r$ is the distance from the lattice center, $O_{\min} = 0.35$ denotes the minimum oxygen level, and $L$ controls
-the characteristic length scale of oxygen recovery.
+where $r$ is the distance from the lattice center, $O_{\min}$ denotes the minimum oxygen level used in the model, and $L$ controls
+the characteristic length scale of oxygen recovery, and in our model it is fixed 
 
 Cell division is attempted by placing a daughter cell in a neighboring empty site. If no empty site is available,
 division may still occur through a pushing mechanism, in which a chain of neighboring cells is displaced along 
@@ -191,7 +190,7 @@ the importance of early mutation events and spatial constraint in driving tumor 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{Seed6_diff_t_mut.jpg}
-  \caption{Agent-based lattice snapshots for $ seed = 6 $illustrating the impact of the mutation event on tumor growth.
+  \caption{Agent-based lattice snapshots for  seed 6 illustrating the impact of the mutation event on tumor growth.
 Left panels show the lattice configuration at the time the mutation is introduced, 
 while right panels show the corresponding configurations after a fixed interval of 80 time steps following the mutation.
 $t$ denotes simulation time, the yellow circle marks the mutation site, and $O_{2}^{\mathrm{mut}}$ denotes the local oxygen concentration at that site. }
@@ -231,22 +230,26 @@ The yellow circle marks the mutation site, and  $O_{2}^{\mathrm{mut}}$ denotes t
 % ===============================
 \section{Conclusion and Outlook}
 % ===============================
-In this work, we developed an agent based lattice model to study how tumor growth depends on mutation timing and stochastic effects.
-As a proof of principle, the model was evaluated by varying the time at which a cancerous mutation is introduced. As expected, early
-mutations occur when fewer healthy cells are present, allowing the higher division rate of cancer cells to drive a rapid and dominant
-tumor expansion. In contrast, mutations introduced at later times arise in a more crowded environment, where the larger number of
-surrounding normal cells limits subsequent cancer growth.
+In this work, we developed an agent-based lattice model to study tumor evolution within a growing normal cell population. 
+As a proof of principle, the model was initially evaluated by testing different time points at which a cancerous mutation 
+is introduced. As anticipated, when the mutation occurs at early time points during healthy cell population expansion, 
+the higher division rate of cancer cells leads the mutant clone to rapidly expand and dominate the population. In contrast,
+ when mutations are introduced at later time points, they arise within a large pre-existing healthy cell population, thereby
+ limiting subsequent tumor clone expansion despite their higher division rate.
 
-To further assess the role of stochasticity, simulations were performed using different random seeds while keeping the mutation timing fixed.
-Despite identical model parameters, the local conditions at the mutation site differed between seeds, leading to variations in the number of
-normal cells present at the time of mutation. These differences directly influenced cancer expansion, highlighting the importance of local 
-spatial crowding in determining tumor growth.
+We next assessed the role of stochasticity by performing simulations with different random seeds while keeping the mutation
+timing fixed. Intriguingly, different seeds resulted in distinct local conditions at the mutation site, leading to variations
+in the number of normal cells present at the time of mutation. These differences directly influenced cancer expansion, 
+highlighting the importance of local spatial crowding in determining tumor growth.
 
-In the current implementation, the oxygen field is treated as a static, diffusion based background, and oxygen consumption by cells is neglected 
-for simplicity. As such, the model provides a minimal framework that can be extended in future work by incorporating dynamic oxygen uptake,
-nutrient availability, and additional microenvironmental factors. With further development and parameter tuning using experimental data, 
-the model could be used to make more quantitative and predictive statements about tumor growth under different conditions.
-
+Overall, this project presents a simple and minimal modeling framework in which a limited number of key factors are integrated. 
+The model yields tumor growth behaviors consistent with the expected influence of mutation timing and population composition. 
+Future work could extend this framework by incorporating additional biological processes, such as multiple mutations, heterogeneous
+ cell properties, and further microenvironmental factors, to study more complex tumor dynamics. In the current implementation, 
+environmental factors such as oxygen are treated as a static diffusion-based background, and cellular oxygen consumption is
+neglected for simplicity. For a more physiologically realistic setting, future extensions should incorporate dynamic oxygen uptake, 
+nutrient availability, and related processes. Lastly, future work could enhance the model by integrating experimental data to fine-tune
+model parameters, thereby improving its predictive capability.
 
 \printbibliography
 
