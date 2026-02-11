@@ -66,42 +66,6 @@
       \verb 10.1016/j.semcancer.2014.04.001
       \endverb
     \endentry
-    \entry{Drasdo2005}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=071b80cd97292c285d9f949330f0ac39}{%
-           family={Drasdo},
-           familyi={D\bibinitperiod},
-           given={Dirk},
-           giveni={D\bibinitperiod}}}%
-        {{hash=5058f2f651678bb44549735d5886e473}{%
-           family={Höhme},
-           familyi={H\bibinitperiod},
-           given={Stefan},
-           giveni={S\bibinitperiod}}}%
-      }
-      \strng{namehash}{7a2ad5f68908050db15cf2718b65a64b}
-      \strng{fullhash}{7a2ad5f68908050db15cf2718b65a64b}
-      \strng{fullhashraw}{7a2ad5f68908050db15cf2718b65a64b}
-      \strng{bibnamehash}{7a2ad5f68908050db15cf2718b65a64b}
-      \strng{authorbibnamehash}{7a2ad5f68908050db15cf2718b65a64b}
-      \strng{authornamehash}{7a2ad5f68908050db15cf2718b65a64b}
-      \strng{authorfullhash}{7a2ad5f68908050db15cf2718b65a64b}
-      \strng{authorfullhashraw}{7a2ad5f68908050db15cf2718b65a64b}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Physical Biology}
-      \field{number}{3}
-      \field{title}{A single-cell-based model of tumor growth in vitro: monolayers and spheroids}
-      \field{volume}{2}
-      \field{year}{2005}
-      \field{pages}{133\bibrangedash 147}
-      \range{pages}{15}
-      \verb{doi}
-      \verb 10.1088/1478-3975/2/3/001
-      \endverb
-    \endentry
     \entry{Chkhaidze2019}{article}{}{}
       \name{author}{7}{}{%
         {{hash=d040835747820ed7414a7a8dcf46ad82}{%
@@ -148,8 +112,8 @@
       \strng{authornamehash}{4751183db07349bcc4236ae25384b57f}
       \strng{authorfullhash}{9e1a76e88b3b80be967886409ef8d0af}
       \strng{authorfullhashraw}{9e1a76e88b3b80be967886409ef8d0af}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{PLOS Computational Biology}
@@ -161,6 +125,87 @@
       \range{pages}{-1}
       \verb{doi}
       \verb 10.1371/journal.pcbi.1007243
+      \endverb
+    \endentry
+    \entry{Drasdo2005}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=071b80cd97292c285d9f949330f0ac39}{%
+           family={Drasdo},
+           familyi={D\bibinitperiod},
+           given={Dirk},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5058f2f651678bb44549735d5886e473}{%
+           family={Höhme},
+           familyi={H\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{fullhash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{fullhashraw}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{bibnamehash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{authorbibnamehash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{authornamehash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{authorfullhash}{7a2ad5f68908050db15cf2718b65a64b}
+      \strng{authorfullhashraw}{7a2ad5f68908050db15cf2718b65a64b}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Biology}
+      \field{number}{3}
+      \field{title}{A single-cell-based model of tumor growth in vitro: monolayers and spheroids}
+      \field{volume}{2}
+      \field{year}{2005}
+      \field{pages}{133\bibrangedash 147}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1088/1478-3975/2/3/001
+      \endverb
+    \endentry
+    \entry{Metzcar2019}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=ea64ac874c10ebd4e2815bdf6896bb6f}{%
+           family={Metzcar},
+           familyi={M\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b941a1a85af1d0f4fdb45e9d61096f17}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Yafei},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=38d1a8cda2f23ba6cbd22857db71d9f8}{%
+           family={Heiland},
+           familyi={H\bibinitperiod},
+           given={Randy},
+           giveni={R\bibinitperiod}}}%
+        {{hash=3bcbc52a0a0c0e2a4897d14de44900c2}{%
+           family={Macklin},
+           familyi={M\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{e42ccc361eba1d0878304ee650f12dcf}
+      \strng{fullhash}{4dacdeea74f7af34867defcfc391fcaa}
+      \strng{fullhashraw}{4dacdeea74f7af34867defcfc391fcaa}
+      \strng{bibnamehash}{e42ccc361eba1d0878304ee650f12dcf}
+      \strng{authorbibnamehash}{e42ccc361eba1d0878304ee650f12dcf}
+      \strng{authornamehash}{e42ccc361eba1d0878304ee650f12dcf}
+      \strng{authorfullhash}{4dacdeea74f7af34867defcfc391fcaa}
+      \strng{authorfullhashraw}{4dacdeea74f7af34867defcfc391fcaa}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{JCO Clinical Cancer Informatics}
+      \field{title}{A Review of Cell-Based Computational Modeling in Cancer Biology}
+      \field{volume}{3}
+      \field{year}{2019}
+      \field{pages}{1\bibrangedash 13}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1200/CCI.18.00069
       \endverb
     \endentry
     \entry{RuizArrebola2020}{article}{}{}
@@ -199,8 +244,8 @@
       \strng{authornamehash}{f5d54ca6965e4ddf6dc1590d4b590beb}
       \strng{authorfullhash}{8abdb657287af9dd333a65e21f221e4e}
       \strng{authorfullhashraw}{8abdb657287af9dd333a65e21f221e4e}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{European Journal of Medical Physics}

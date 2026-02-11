@@ -72,13 +72,13 @@
 In-silico simulations are becoming increasingly used to study cancer biology, as they enable the combined effects of multiple biological
 and physical factors to be investigated within a controlled framework, thereby improving our ability to understand and predict tumor behavior\cite{Wang2014}.
 This is particularly relevant for solid tumors, where spatial constraints, local cell–cell interactions, and stochastic effects play an 
-important role in shaping growth dynamics.
+important role in shaping growth dynamics \cite{Chkhaidze2019}.
 
 In this context, agent-based models (ABMs) have been widely applied to simulate and study tumor growth. A common formulation employs 
 on-lattice models, where cells occupy sites on a regular grid and interact with neighboring cells. In cancer growth modeling, ABMs 
-are well suited to capture spatial heterogeneity and emergent behavior arising from cell–cell interactions and environmental constraints\cite{Drasdo2005} \cite{Chkhaidze2019}.
+are well suited to capture spatial heterogeneity and emergent behavior arising from cell–cell interactions and environmental constraints \cite{Wang2014} \cite{Drasdo2005} \cite{Metzcar2019} .
 
-In thisproject, tumor growth is modeled using an agent-based Monte Carlo approach, an approach that has been used in previous studies
+In this project, tumor growth is modeled using an agent-based Monte Carlo approach, an approach that has been used in previous studies
 to simulate multicellular tumor growth \cite{RuizArrebola2020}. The aim of this work is to develop a model that can be used to study the impact of
 stochasticity, spatial constraints and oxygen availability on tumor growth within growing healthy cell population. The stochastic
 nature of cellular processes is simulated using Monte Carlo methods implemented in the Julia programming language, in which events 
@@ -95,7 +95,7 @@ and probablistic decisions for division or death are made taking into account th
 
 
 The oxygen field is prescribed as a static, radially symmetric profile that is lowest at the lattice core and
-increases toward the lattice boundary, mimicking diffusion-limited oxygen supply. It is defined in Equation~\eqref{eq:oxygen}.
+increases toward the lattice boundary, mimicking diffusion-limited oxygen supply as defined in Equation~\eqref{eq:oxygen}.
 
 \begin{equation}
 O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right)
@@ -103,16 +103,16 @@ O(r) = O_{\min} + \left(1 - O_{\min}\right)\left(1 - e^{-r/L}\right)
 \end{equation}
 
 where $r$ is the distance from the lattice center, $O_{\min}$ denotes the minimum oxygen level used in the model, and $L$ controls
-the characteristic length scale of oxygen recovery, and in our model it is fixed 
+the characteristic length scale of oxygen recovery.
 
-Cell division is attempted by placing a daughter cell in a neighboring empty site. If no empty site is available,
-division may still occur through a pushing mechanism, in which a chain of neighboring cells is displaced along 
-a lattice direction until an empty site is reached. Cancer cells are assigned a higher probability to push neighboring
+Cell division is attempted by placing a daughter cell in a neighboring empty site. If no empty neighbor is available,
+a pushing attempt is made with probability $p_{\text{push}}$. A lattice direction is chosen at random, and if an empty site 
+is found along that direction, the cells along that direction are shifted to create space for the daughter cell. Cancer cells are assigned a higher probability to push neighboring
 cells compared to normal cells, reflecting their enhanced mechanical aggressiveness. For normal cells, the pushing
 probability is set to a very small value as shown in Table~\ref{table:parameters} and is therefore negligible in practice. 
 Dead cells are removed stochastically with a fixed clearance probability $p_{\text{clear}} = 0.02$, allowing space to be freed up over time.
 
-A former cancer cell occurs by introducing a mutation event in a normal cell that has at least one neighboring empty lattice site. 
+A founder cancer cell occurs by introducing a mutation event in a normal cell that has at least one neighboring empty lattice site. 
 The mutation time $t_{\text{mut}}$ can be controlled to explore different growth scenarios, and simulations 
 using different random seeds can be used to generate independent realizations of the stochastic process.
 
@@ -120,7 +120,7 @@ Division and death probabilities depend on both the cell type and the local oxyg
 parameter values summarized in Table~\ref{table:parameters}. Oxygen enters the model as a phenomenological factor 
 that biases cell fate toward division in well-oxygenated regions and toward death under hypoxic conditions, as defined in Eq.~\eqref{eq:oxygen_fate}.
 Normal cell division is assumed to scale strongly with oxygen availability, whereas cancer cells are allowed
-to maintain a finite probability of division even in hypoxic environments. For the results shown here, a minimum oxygen level 
+to maintain a finite probability of division even in hypoxic environments. For the result of our simulations, a minimum oxygen level 
 $O_{\min} = 0.35 $ is imposed, which limits the degree of hypoxia experienced by cells. 
 This parameter can be varied in future simulations to explore more severe hypoxic conditions.
 If neither division nor death occurs during a given time step, the cell remains unchanged.
@@ -160,7 +160,7 @@ p_{\mathrm{quies}}(O) &= 1 - p_{\mathrm{div}}(O) - p_{\mathrm{death}}(O).
 \end{equation}
 
 \noindent\textbf{Oxygen-dependent cell fate probabilities.}
-Here, $O \in [O_{\min},1]$ denotes the local oxygen concentration, with $O_{\min}=0.35$.
+Here, $O \in [O_{\min},1]$ denotes the local oxygen concentration, with $O_{\min}=0.35$ in our current simulations.
 Superscripts $N$ and $C$ refer to normal and cancer cells, respectively.
 
 
@@ -174,7 +174,7 @@ Superscripts $N$ and $C$ refer to normal and cancer cells, respectively.
 
 In figure~\ref{fig:seed6}, the effect of mutation timing on tumor growth is illustrated for seed 6. 
 The left panel shows the lattice snapshot at the mutation time $t = 50,\; 90,\; 150,\; \text{and}\; 200$. 
-$O_{2}^{\mathrm{mut}}$is the local oxygen concentration at the mutation site. The former cancer cell is marked by a yellow circle.
+$O_{2}^{\mathrm{mut}}$is the local oxygen concentration at the mutation site. The founder cancer cell is marked by a yellow circle.
 
 These snapshots illustrate how the timing of the mutation influences the spatial competition between cancer and normal cells.
 When the mutation occurs at an earlier time, the cancer population has more time to expand, resulting in stronger crowding 
@@ -183,7 +183,7 @@ proliferated and occupied a larger fraction of the lattice before the mutation t
 
 Mutations introduced at early time points ($t= 50, 90, 150$) occure at the periphery, while when it was introduced at ($t = 200$), it occurs at more centrally located 
 site. This situation might arise from the stochastic clearance of dead cells implemented in the model, which free up an empty site for cells to divide into, and later
-on growth happens through the pushing mechanisim. Cancer growth in this case remains significantly reduced compared to earlier mutation times, highlighting 
+on growth happened through the pushing mechanisim. Cancer growth in this case remains significantly reduced compared to earlier mutation times, highlighting 
 the importance of early mutation events and spatial constraint in driving tumor expansion.  
 
 \newpage
@@ -210,11 +210,17 @@ rapidly and occupies most of the lattice by $t=200$, whereas in seed 6 the cance
 from the stochastic placement of the mutation, which determines the local environment in which the first cancer cell appears. 
 
 Further analysis shows that oxygen availability at the mutation site is not the main factor behind this behavior.
-Instead, the key difference is the local density of normal cells at $t_{\mathrm{mut}}$. Quantifying this through
-the number of normal cells $N_n(t,\mathrm{\text{seed number}})$, we find $N_n(t_{\mathrm{mut}}=120, 6)=1225$, compared to
-$N_n(t_{\mathrm{mut}}=120, 10)=288$.
-The much lower crowding in seed 10 allows the cancer population to expand more easily, especially given its higher
-division and pushing probabilities and lower death probability compared to normal cells, as described earlier.
+Instead, the key difference is the local density of normal cells at $t_{\mathrm{mut}}$.
+This is quantified by the function $N_n(t,\mathrm{seed})$, representing the number of normal cells at time $t$ for a given random seed.
+For $t_{\mathrm{mut}} = 120$, we find
+\[
+N_n(120,6) = 1225,
+\qquad
+N_n(120,10) = 288.
+\]
+
+The much lower crowding at  $t_{\mathrm{mut}}$ in seed 10 allows the cancer population to expand more easily, especially given its higher
+division and pushing probabilities and lower death probability compared to normal cells \ref{table:parameters}.
 
 
   

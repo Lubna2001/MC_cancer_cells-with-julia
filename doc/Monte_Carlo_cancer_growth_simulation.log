@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.24)  11 FEB 2026 02:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.24)  11 FEB 2026 13:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -689,26 +689,20 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 90.
  [1
 
-{C:/Users/user/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}] [3]
-<Seed6_diff_t_mut.jpg, id=70, 597.6729pt x 845.0772pt>
+{C:/Users/user/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}] [2{C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}] [3]
+<Seed6_diff_t_mut.jpg, id=73, 597.6729pt x 845.0772pt>
 File: Seed6_diff_t_mut.jpg Graphic file (type jpg)
 <use Seed6_diff_t_mut.jpg>
 Package pdftex.def Info: Seed6_diff_t_mut.jpg  used on input line 192.
 (pdftex.def)             Requested size: 409.71692pt x 579.32571pt.
  [4 <./Seed6_diff_t_mut.jpg>]
-<seed6_seed10.jpg, id=76, 711.3777pt x 768.2301pt>
+<seed6_seed10.jpg, id=80, 711.3777pt x 768.2301pt>
 File: seed6_seed10.jpg Graphic file (type jpg)
 <use seed6_seed10.jpg>
-Package pdftex.def Info: seed6_seed10.jpg  used on input line 223.
+Package pdftex.def Info: seed6_seed10.jpg  used on input line 229.
 (pdftex.def)             Requested size: 273.14923pt x 294.97826pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [5 <./seed6_seed10.jpg>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 254.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 260.
  (C:\Users\user\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [6] (Monte_Carlo_cancer_growth_simulation.aux)
@@ -723,17 +717,17 @@ Package logreq Info: Writing requests to 'Monte_Carlo_cancer_growth_simulation.r
 
  ) 
 Here is how much of TeX's memory you used:
- 19551 strings out of 467871
- 343278 string characters out of 5418860
- 1166535 words of memory out of 5000000
- 48179 multiletter control sequences out of 15000+600000
+ 19557 strings out of 467871
+ 343496 string characters out of 5418860
+ 1168594 words of memory out of 5000000
+ 48184 multiletter control sequences out of 15000+600000
  679414 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,14n,79p,768b,1308s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/user/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on Monte_Carlo_cancer_growth_simulation.pdf (6 pages, 3382552 bytes).
+Output written on Monte_Carlo_cancer_growth_simulation.pdf (6 pages, 3384003 bytes).
 PDF statistics:
- 168 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
+ 173 PDF objects out of 1000 (max. 8388607)
+ 24 named destinations out of 1000 (max. 500000)
  59 words of extra memory for PDF output out of 10000 (max. 10000000)
 
